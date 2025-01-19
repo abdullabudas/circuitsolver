@@ -2,12 +2,11 @@
 circuitsolver is a Python-based tool designed to solve DC circuits using the loop analysis method. It can handle both dependent and independent sources in a circuit.
 
 Circuit Conventions:
-Positive loop current: Clockwise
-Resistance: In kilo ohms (kΩ)
-Current: In milliampere (mA)
-Conductance: In millisiemens (mS)
-Voltage: In volts (V)
-
+Positive loop current: Clockwise  
+Resistance: In kilo ohms (kΩ)  
+Current: In milliampere (mA)  
+Conductance: In millisiemens (mS)  
+Voltage: In volts (V)  
 Sample Usage:
 
 Circuit
@@ -18,11 +17,8 @@ Circuit
 
 
 Voltage Source: VA, 2, 2-5, Independent  
-
 Voltage Source: VC, 7, 1+2, Independent  
-
 Voltage Source: V, 0.75, 0+4, Vu  
-
 
 Resistor: Rz, 3.6  
 Resistor: Rv, 1.2  
