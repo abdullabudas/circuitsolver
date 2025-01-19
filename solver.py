@@ -13,14 +13,14 @@ def write_equations_with_no_superloops(loops_arrays, loops_arrays1):
                 if comp.dependency == "Independent":
                     if comp.polarity[1] == "+":
                         if str(loop.number) == comp.polarity[0]:
-                            equation += " + " + comp.name
-                        else:
                             equation += " - " + comp.name
+                        else:
+                            equation += " + " + comp.name
                     else:
                         if str(loop.number) == comp.polarity[0]:
-                            equation += " - " + comp.name
-                        else:
                             equation += " + " + comp.name
+                        else:
+                            equation += " - " + comp.name
                 else:  # Dependent Voltage Source
                     my_dependency = component_lookup(comp.dependency[1], loops_arrays1)
                     if len(my_dependency) == 1:
@@ -28,17 +28,17 @@ def write_equations_with_no_superloops(loops_arrays, loops_arrays1):
                                     "V"):
                             if comp.polarity[1] == "+":
                                 if str(loop.number) == comp.polarity[0]:
-                                    equation += "+" + str(comp.value) + " * i" + str(
+                                    equation += "-" + str(comp.value) + " * i" + str(
                                             my_dependency) + " * " + comp.dependency
                                 else:
-                                    equation += "-" + str(comp.value) + " * i" + str(
+                                    equation += "+" + str(comp.value) + " * i" + str(
                                             my_dependency[0][0]) + " * " + my_dependency[0][1].name
                             else:
                                 if str(loop.number) == comp.polarity[0]:
-                                    equation += "-" + str(comp.value) + " * i" + str(
+                                    equation += "+" + str(comp.value) + " * i" + str(
                                             my_dependency) + " * " + comp.dependency
                                 else:
-                                    equation += "+" + str(comp.value) + " * i" + str(
+                                    equation += "-" + str(comp.value) + " * i" + str(
                                             my_dependency) + " * " + comp.dependency
                         else:
                             if str(loop.number) == comp.polarity[0]:
@@ -52,17 +52,17 @@ def write_equations_with_no_superloops(loops_arrays, loops_arrays1):
                             # Voltage Source that depends on the voltage drop across a resistor
                             if comp.polarity[1] == "+":
                                 if str(loop.number) == comp.polarity[0]:
-                                        equation += "+" + str(comp.value) + " * (i" + str(
+                                        equation += "-" + str(comp.value) + " * (i" + str(
                                             loop1[0]) + "-i" + str(loop2[0]) + ") * " + loop1[1].name
                                 else:
-                                        equation += "-" + str(comp.value) + " * (i" + str(
+                                        equation += "+" + str(comp.value) + " * (i" + str(
                                             loop1[0]) + "-i" + str(loop2[0]) + ") * " + loop1[1].name
                             else:
                                 if str(loop.number) == comp.polarity[0]:
-                                        equation += "-" + str(comp.value) + " * (i" + str(
+                                        equation += "+" + str(comp.value) + " * (i" + str(
                                             loop1[0]) + "-i" + str(loop2[0]) + ") * " + loop1[1].name
                                 else:
-                                        equation += "+" + str(comp.value) + " * (i" + str(
+                                        equation += "-" + str(comp.value) + " * (i" + str(
                                             loop1[0]) + "-i" + str(loop2[0]) + ") * " + loop1[1].name
                         else:
                             if str(loop.number) == comp.polarity[0]:
@@ -116,11 +116,12 @@ def write_equations_with_superloops(loops_arrays, loops_arrays1):
                         kcl = shared_current_sources[0]
                         loop_combination = [loop, kcl]
                         write_kvl = write_equations_with_no_superloops(loop_combination, loops_arrays1)
-
+                        cohesive_string = ''.join(write_kvl)
 
                         explored_superloops.add(loop)
                         explored_superloops.add(kcl)
-                        equations.append(write_kvl)
+
+                        equations.append(cohesive_string)
 
                         if comp.polarity[1] == "+":
                             if str(loop.number) == comp.polarity[0]:
@@ -161,6 +162,7 @@ def write_equations_with_superloops(loops_arrays, loops_arrays1):
                             write_kvl = write_equations_with_no_superloops(loops, loops_arrays1)
 
                             cohesive_string = ''.join(write_kvl)
+
 
                             equations.append(cohesive_string)
 
