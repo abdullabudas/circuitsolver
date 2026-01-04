@@ -1,5 +1,5 @@
 from objects import CurrentSource, VoltageSource, Resistor, Loop
-from solver import process_circuit_data
+from mesh_analyzer import process_circuit_data
 import sympy as sp
 
 def read_text(file_path):
