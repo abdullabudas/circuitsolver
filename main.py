@@ -1,8 +1,5 @@
-from loopanalysis import Loop
-from loopanalysis import Resistor
-from loopanalysis import VoltageSource
-from loopanalysis import CurrentSource
-from copypython import process_circuit_data
+from objects import CurrentSource, VoltageSource, Resistor, Loop
+from solver import process_circuit_data
 import sympy as sp
 
 def read_text(file_path):
